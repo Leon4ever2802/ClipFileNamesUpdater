@@ -15,8 +15,11 @@ Dieses Tool benennt sie automatisch in ein strukturiertes Format um:
 ## ✨ Features
 
 - 🎮 **Automatische Erkennung**: Erkennt MP4-Videos und PNG-Screenshots
-- 📁 **Rekursive Verarbeitung**: Durchsucht alle Unterordner nach "Cutted"-Verzeichnissen
+- 📁 **Sichere Verarbeitung**: Verarbeitet **nur** Dateien in "Cutted"-Ordnern (schützt ungeschnittene Original-Clips)
+- 🔄 **Rekursive Suche**: Durchsucht alle Unterordner nach "Cutted"-Verzeichnissen
 - 🎯 **Spiel-Aliases**: Optionale Unterstützung für benutzerdefinierte Spielnamen (z.B. "Counter-strike 2" → "CS2")
+- 🛡️ **Intelligente Filterung**: Überspringt bereits korrekt benannte Dateien
+- 📊 **Detaillierte Ausgabe**: Zeigt alle Änderungen und Statistiken an
 
 ## 🚀 Installation
 
@@ -84,6 +87,26 @@ known_games = {
 
 ## 🎯 Verwendung
 
+### ⚠️ Wichtig: Datei-Organisation
+
+**Das Tool verarbeitet NUR Dateien in "Cutted"-Ordnern!** Dies ist eine bewusste Sicherheitsmaßnahme, um zu verhindern, dass ungeschnittene Original-Clips versehentlich umbenannt werden.
+
+**Typische Ordnerstruktur:**
+```
+GeForce Experience/
+├── Game Name 1/
+│   ├── Game Name 1 2024.08.15.mp4               # ❌ Diese werden NICHT verarbeitet
+│   ├── Game Name 1 Screenshot 2024.08.15.png    # ❌ Diese werden NICHT verarbeitet
+│   └── Cutted/                                  # ✅ Nur diese werden umbenannt
+│       ├── Game Name 1 2023.08.15.mp4
+│       └── Game Name 1 Screenshot 2023.08.15.png
+└── Game Name 2/
+    ├── Game Name 2 2024.08.15.mp4               # ❌ Diese werden NICHT verarbeitet
+    ├── Game Name 2 Screenshot 2024.08.15.png    # ❌ Diese werden NICHT verarbeitet
+    └── Cutted/                                  # ✅ Nur diese werden umbenannt
+        └── Game Name 2 2023.08.16.mp4
+```
+
 ### Grundlegende Ausführung
 
 ```bash
@@ -102,8 +125,9 @@ python -m unittest tests.test_adapt_file_names -v
 
 ## ⚠️ Wichtige Hinweise
 
+- **🔒 Sicherheit durch "Cutted"-Ordner**: Das Tool verarbeitet ausschließlich Dateien in Ordnern namens "Cutted". Dies schützt Ihre ungeschnittenen Original-Clips vor versehentlichen Umbenennungen
 - **Backup empfohlen**: Erstellen Sie eine Sicherungskopie Ihrer Clips vor der ersten Ausführung
-- **Pfad-Anforderungen**: Das Tool sucht nur in Ordnern namens "Cutted"
+- **Ordner-Struktur beachten**: Stellen Sie sicher, dass Ihre bearbeiteten Clips in "Cutted"-Ordnern liegen
 - **Bereits umbenannte Dateien**: Werden automatisch übersprungen
 - **Ungültige Formate**: Dateien mit unerkannten Namensmustern werden übersprungen
 
@@ -118,9 +142,15 @@ Dieses Projekt steht unter der [MIT Lizenz](LICENSE).
 **Problem**: "No filename updates made" für alle Dateien
 - **Lösung**: Überprüfen Sie den `GAME_CLIPS_PATH` in der `.env` Datei
 - **Lösung**: Stellen Sie sicher, dass Ihre geschnittenen Clips in "Cutted"-Ordnern liegen
+- **Lösung**: Prüfen Sie, ob die Ordnerstruktur korrekt ist (Dateien müssen in einem Unterordner namens "Cutted" liegen)
 
 **Problem**: Bestimmte Dateien werden nicht umbenannt
 - **Lösung**: Überprüfen Sie das Dateinamenformat - es muss dem GeForce Experience Schema entsprechen
+- **Lösung**: Stellen Sie sicher, dass sich die Dateien in einem "Cutted"-Ordner befinden
+
+**Problem**: Tool findet keine Dateien
+- **Lösung**: Überprüfen Sie, ob Ihre Clips in Ordnern namens "Cutted" organisiert sind
+- **Lösung**: Das Tool ignoriert bewusst alle anderen Ordner zum Schutz unbearbeiteter Clips
 
 **Problem**: ModuleNotFoundError
 - **Lösung**: Führen Sie `pip install -r requirements.txt` aus
