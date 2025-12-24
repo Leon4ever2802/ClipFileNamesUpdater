@@ -8,6 +8,13 @@ from adapt_file_names import adapt_mp4_file_name, adapt_png_file_name
 
 class TestAdaptMP4FileNames(ParametrizedTestCase, unittest.TestCase):
 
+    def setUp(self):
+        self.print_patcher = patch('adapt_file_names.print')
+        self.mock_print = self.print_patcher.start()
+
+    def tearDown(self):
+        self.print_patcher.stop()
+
     @parametrize(
         "input_file_name, expected_file_name",
         [
@@ -49,7 +56,16 @@ class TestAdaptMP4FileNames(ParametrizedTestCase, unittest.TestCase):
 
         self.assertEqual(expected_file_name, result_file_name)
 
+
 class TestAdaptPNGFileNames(ParametrizedTestCase, unittest.TestCase):
+
+    def setUp(self):
+        # Patch print um Ausgaben zu unterdrücken
+        self.print_patcher = patch('adapt_file_names.print')
+        self.mock_print = self.print_patcher.start()
+
+    def tearDown(self):
+        self.print_patcher.stop()
 
     @parametrize(
         "input_file_name, expected_file_name",
