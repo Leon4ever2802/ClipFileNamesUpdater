@@ -1,7 +1,17 @@
 import os
 
-from src.filename_adapters.mp4_file_name_adapter import adapt_mp4_file_name
-from src.filename_adapters.png_file_name_adapter import adapt_png_file_name
+from src.adapt_file_names import adapt_mp4_file_name, adapt_png_file_name
+
+
+def __get_new_file_name(file_name: str):
+    if file_name.lower().endswith(".mp4"):
+        return adapt_mp4_file_name(file_name)
+    elif file_name.lower().endswith(".png"):
+        return adapt_png_file_name(file_name)
+    else:
+        print(f"\t{file_name} is not a mp4/png file.")
+        return None
+
 
 def update_file_names(game_clips_path :str):
     files_adapted: int = 0
@@ -15,13 +25,7 @@ def update_file_names(game_clips_path :str):
         print(f"Checking game clips inside: {path}")
 
         for file_name in files:
-            if file_name.lower().endswith(".mp4"):
-                new_file_name = adapt_mp4_file_name(file_name)
-            if file_name.lower().endswith(".png"):
-                new_file_name = adapt_png_file_name(file_name)
-            else:
-                print(f"\t{file_name} is not a mp4/png file.")
-                continue
+            new_file_name: str | None = __get_new_file_name(file_name)
 
             if new_file_name and file_name != new_file_name:
                 file_path = os.path.join(path, file_name)
