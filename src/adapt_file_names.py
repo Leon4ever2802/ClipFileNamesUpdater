@@ -35,3 +35,4 @@ def adapt_mp4_file_name(file_name: str) -> str | None:
 
 def adapt_png_file_name(file_name: str) -> str | None:
     return __adapt_file_name(file_name, ADAPTED_PNG_FILE_PATTERN, CUTTED_PNG_FILE_PATTERN, "_Screenshot_", "png")
+
