@@ -2,7 +2,7 @@ from re import Pattern
 
 from config import config
 from replacement_dict import known_games
-from src.patterns import ADAPTED_PNG_FILE_PATTERN, CUTTED_PNG_FILE_PATTERN, CUTTED_MP4_FILE_PATTERN, \
+from patterns import ADAPTED_PNG_FILE_PATTERN, CUTTED_PNG_FILE_PATTERN, CUTTED_MP4_FILE_PATTERN, \
     ADAPTED_MP4_FILE_PATTERN
 
 def __adapt_file_name(file_name: str, adapted_pattern: Pattern[str], cutted_pattern: Pattern[str], after_game_name_text: str, file_type: str) -> str | None:

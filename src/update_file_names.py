@@ -1,6 +1,6 @@
 import os
 
-from src.adapt_file_names import adapt_mp4_file_name, adapt_png_file_name
+from adapt_file_names import adapt_mp4_file_name, adapt_png_file_name
 
 
 def __get_new_file_name(file_name: str):

@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ClipFileNamesUpdater"
+name = "clipfilenamesupdater"
 version = "0.0.0"
 description = "Utility to adapt clip file names"
 readme = "README.md"
@@ -13,6 +13,8 @@ dependencies = [
     "unittest-parametrize",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src"]
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools]
+py-modules = ["adapt_file_names", "update_file_names"]
