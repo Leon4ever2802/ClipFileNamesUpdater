@@ -113,6 +113,81 @@ GeForce Experience/
 python main.py
 ```
 
+### Beispiel-Ausgabe
+
+```
+Checking game clips inside: /path/to/clips/Cool Game/Cutted
+	Renamed: Cool Game 2023.08.15.mp4 → Cool_Game_2023-08-15.mp4
+	Renamed: Cool Game Screenshot 2023.08.15.png → Cool_Game_Screenshot_2023-08-15.png
+
+Checking game clips inside: /path/to/clips/Another Game/Cutted
+	Renamed: Another Game 2022.12.01_extra_info.mp4 → Another_Game_2022-12-01_extra_info.mp4
+	No filename updates made.
+
+4 files were updated.
+```
+
+## 📋 Unterstützte Dateiformate und Namensmuster
+
+### 🎬 Video-Dateien (.mp4)
+
+Das Tool erkennt und konvertiert folgende MP4-Dateienamensmuster:
+
+**Basis-Format (GeForce Experience Standard):**
+```
+Eingabe:  Game Name 2023.08.15.mp4
+Ausgabe:  Game_Name_2023-08-15.mp4
+```
+
+**Mit zusätzlichen Informationen:**
+```
+Eingabe:  Game Name 2023.08.15_extra_info.mp4
+Ausgabe:  Game_Name_2023-08-15_extra_info.mp4
+```
+
+**Mit GeForce Experience Zusatztext (wird entfernt):**
+```
+Eingabe:  Game Name 2023.08.15 - 00.23.54.12.DVR.mp4
+Ausgabe:  Game_Name_2023-08-15.mp4
+
+Eingabe:  Game Name 2023.08.15_custom_info - 00.23.54.12.DVR.mp4
+Ausgabe:  Game_Name_2023-08-15_custom_info.mp4
+```
+
+### 🖼️ Screenshot-Dateien (.png)
+
+Das Tool erkennt und konvertiert folgende PNG-Dateienamensmuster:
+
+**Basis-Format (GeForce Experience Standard):**
+```
+Eingabe:  Game Name Screenshot 2023.08.15.png
+Ausgabe:  Game_Name_Screenshot_2023-08-15.png
+```
+
+**Mit zusätzlichen Informationen:**
+```
+Eingabe:  Game Name Screenshot 2023.08.15_boss_fight.png
+Ausgabe:  Game_Name_Screenshot_2023-08-15_boss_fight.png
+```
+
+**Mit GeForce Experience Zusatztext (wird entfernt):**
+```
+Eingabe:  Game Name Screenshot 2023.08.15 - Kopie.png
+Ausgabe:  Game_Name_Screenshot_2023-08-15.png
+```
+
+### 🚫 Nicht unterstützte Formate
+
+Diese Dateien werden **übersprungen** und nicht umbenannt:
+
+```
+❌ Game Name 22.12.01.mp4          # Falsches Datumsformat (YY statt YYYY)
+❌ InvalidFileName.mp4             # Kein erkanntes Muster
+❌ Game_Name_2023-08-15.mp4        # Bereits korrekt formatiert
+❌ Game Name 2023.08.15.avi        # Nicht unterstütztes Format
+❌ Screenshot 2023.08.15.png       # Kein Spielname vorhanden
+```
+
 ## 🧪 Tests ausführen
 
 ```bash
