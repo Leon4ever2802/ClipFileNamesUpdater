@@ -25,7 +25,7 @@ Dieses Tool benennt sie automatisch in ein strukturiertes Format um:
 
 ### Voraussetzungen
 
-- Python 3.8 oder höher
+- Python 3.10 oder höher
 - pip (Python Package Manager)
 
 ### Setup
