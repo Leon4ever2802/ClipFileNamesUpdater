@@ -13,6 +13,8 @@ class TestAdaptMP4FileNames(ParametrizedTestCase, unittest.TestCase):
         [
             ("Cool Game 2023.08.15.mp4", "Cool_Game_2023-08-15.mp4"),
             ("Another Game 2022.12.01_extra_info.mp4", "Another_Game_2022-12-01_extra_info.mp4"),
+            ("The Game 2023.08.15 - 12.64.12.75.DVR.mp4", "The_Game_2023-08-15.mp4"),
+            ("The Game 2023.08.15_extra_Info - 12.64.12.75.DVR.mp4", "The_Game_2023-08-15_extra_Info.mp4"),
         ],
     )
     def test__should_adapt_mp4_file_name(self, input_file_name, expected_file_name):
@@ -25,7 +27,7 @@ class TestAdaptMP4FileNames(ParametrizedTestCase, unittest.TestCase):
         "input_file_name",
         [
             "Another_Game_2022-12-01_extra_info.mp4",
-            "Another Game 22.12.01.mp4",
+            "Another Game 22.12.1.mp4",
             "InvalidFileName.mp4",
         ],
     )
