@@ -90,20 +90,6 @@ known_games = {
 python main.py
 ```
 
-### Beispiel-Ausgabe
-
-```
-Checking game clips inside: /path/to/clips/Cool Game/Cutted
-	Renamed: Cool Game 2023.08.15.mp4 → Cool_Game_2023-08-15.mp4
-	Renamed: Cool Game Screenshot 2023.08.15.png → Cool_Game_Screenshot_2023-08-15.png
-
-Checking game clips inside: /path/to/clips/Another Game/Cutted
-	Renamed: Another Game 2022.12.01_extra_info.mp4 → Another_Game_2022-12-01_extra_info.mp4
-	No filename updates made.
-
-4 files were updated.
-```
-
 ## 🧪 Tests ausführen
 
 ```bash
