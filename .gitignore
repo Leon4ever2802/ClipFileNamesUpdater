@@ -125,6 +125,7 @@ activemq-data/
 .env
 .envrc
 .venv
+uv.lock
 env/
 venv/
 ENV/
