@@ -12,6 +12,11 @@ def __get_new_file_name(file_name: str):
         print(f"\t{file_name} is not a mp4/png file.")
         return None
 
+def __rename_file(dir_path: str, file_name: str, new_file_name: str):
+    file_path = os.path.join(dir_path, file_name)
+    new_file_path = os.path.join(dir_path, new_file_name)
+
+    os.rename(file_path, new_file_path)
 
 def update_file_names(game_clips_path :str):
     files_adapted: int = 0
@@ -28,10 +33,7 @@ def update_file_names(game_clips_path :str):
             new_file_name: str | None = __get_new_file_name(file_name)
 
             if new_file_name and file_name != new_file_name:
-                file_path = os.path.join(path, file_name)
-                new_file_path = os.path.join(path, new_file_name)
-
-                os.rename(file_path, new_file_path)
+                __rename_file(path, file_name, new_file_name)
 
                 file_name_update_made_in_path = True
                 files_adapted += 1
