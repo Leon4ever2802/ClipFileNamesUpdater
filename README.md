@@ -1,80 +1,81 @@
 # ClipFileNamesUpdater
 
-Ein Python-Tool zum automatischen Umbenennen von Spielaufnahmen (Clips) von GeForce Experience in ein einheitliches und strukturiertes Dateinamensformat.
+A Python tool for automatically renaming game recordings (clips) from GeForce Experience to a consistent and structured filename format.
 
-## 📝 Über das Projekt
+## 📝 About the Project
 
-GeForce Experience erstellt beim Aufnehmen von Spielhighlights Dateien mit inkonsistenten Namensformaten wie:
-- `Cool Game 2023.08.15.mp4`
-- `Cool Game Screenshot 2023.08.15.png`
+GeForce Experience creates files with inconsistent naming formats when recording game highlights, such as:
+- `Cool Game 2023.08.15 - 12.64.12.75.DVR.mp4`
+- `Cool Game Screenshot 2023.08.15 - 12.64.12.75.DVR.png`
 
-Dieses Tool benennt sie automatisch in ein strukturiertes Format um:
+This tool automatically renames them to a structured format and removes the GeForce Experience timestamps and DVR suffixes:
 - `Cool_Game_2023-08-15.mp4`
 - `Cool_Game_Screenshot_2023-08-15.png`
 
 ## ✨ Features
 
-- 🎮 **Automatische Erkennung**: Erkennt MP4-Videos und PNG-Screenshots
-- 📁 **Sichere Verarbeitung**: Verarbeitet **nur** Dateien in "Cutted"-Ordnern (schützt ungeschnittene Original-Clips)
-- 🔄 **Rekursive Suche**: Durchsucht alle Unterordner nach "Cutted"-Verzeichnissen
-- 🎯 **Spiel-Aliases**: Optionale Unterstützung für benutzerdefinierte Spielnamen (z.B. "Counter-strike 2" → "CS2")
-- 🛡️ **Intelligente Filterung**: Überspringt bereits korrekt benannte Dateien
-- 📊 **Detaillierte Ausgabe**: Zeigt alle Änderungen und Statistiken an
+- 🎮 **Automatic Detection**: Recognizes MP4 videos and PNG screenshots
+- 🧹 **Clean Filenames**: Removes GeForce Experience metadata (timestamps, DVR suffixes)
+- 📁 **Safe Processing**: Processes **only** files in "Cutted" folders (protects unedited original clips)
+- 🔄 **Recursive Search**: Searches all subfolders for "Cutted" directories
+- 🎯 **Game Aliases**: Optional support for custom game names (e.g., "Counter-strike 2" → "CS2")
+- 🛡️ **Smart Filtering**: Skips already correctly named files
+- 📊 **Detailed Output**: Shows all changes and statistics
 
 ## 🚀 Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- Python 3.10 oder höher
+- Python 3.10 or higher
 - pip (Python Package Manager)
 
 ### Setup
 
-1. **Repository klonen:**
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/ClipFileNamesUpdater.git
    cd ClipFileNamesUpdater
    ```
 
-2. **Dependencies installieren:**
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Umgebungskonfiguration erstellen:**
+3. **Create environment configuration:**
    ```bash
    cp .env.example .env
    ```
 
-## ⚙️ Konfiguration
+## ⚙️ Configuration
 
-### 1. Umgebungsvariablen (.env)
+### 1. Environment Variables (.env)
 
-Bearbeite die `.env` Datei mit deinen Einstellungen:
+Edit the `.env` file with your settings:
 
 ```env
-# Absoluter Pfad zu deinem GeForce Experience Clips Ordner
+# Absolute path to your GeForce Experience clips folder
 GAME_CLIPS_PATH=/path/to/your/GeForce Experience/game/clips
 
-# Aktiviere Spielnamen-Ersetzungen (optional)
+# Enable game name replacements (optional)
 ENABLE_REPLACEMENT_NAMES=true
 ```
 
-**Beispiel für Windows:**
+**Example for Windows:**
 ```env
 GAME_CLIPS_PATH=C:\Users\Username\Videos\GeForce Experience
 ENABLE_REPLACEMENT_NAMES=false
 ```
 
-**Beispiel für macOS/Linux:**
+**Example for macOS/Linux:**
 ```env
 GAME_CLIPS_PATH=/Users/username/Videos/GeForce Experience
 ENABLE_REPLACEMENT_NAMES=false
 ```
 
-### 2. Spielnamen-Ersetzungen (Optional)
+### 2. Game Name Replacements (Optional)
 
-Bearbeite `src/replacement_dict.py` um benutzerdefinierte Spielnamen hinzuzufügen:
+Edit `src/replacement_dict.py` to add custom game names:
 
 ```python
 known_games = {
@@ -90,154 +91,149 @@ known_games = {
 }
 ```
 
-## 🎯 Verwendung
+## 🎯 Usage
 
-### ⚠️ Wichtig: Datei-Organisation
+### ⚠️ Important: File Organization
 
-**Das Tool verarbeitet NUR Dateien in "Cutted"-Ordnern!** Dies ist eine bewusste Sicherheitsmaßnahme, um zu verhindern, dass ungeschnittene Original-Clips versehentlich umbenannt werden.
+**The tool processes ONLY files in "Cutted" folders!** This is a deliberate safety measure to prevent unedited/uncutted original clips from being accidentally renamed.
 
-**Typische Ordnerstruktur:**
+**Typical folder structure:**
 ```
 GeForce Experience/
 ├── Game Name 1/
-│   ├── Game Name 1 2024.08.15.mp4               # ❌ Diese werden NICHT verarbeitet
-│   ├── Game Name 1 Screenshot 2024.08.15.png    # ❌ Diese werden NICHT verarbeitet
-│   └── Cutted/                                  # ✅ Nur diese werden umbenannt
+│   ├── Game Name 1 2024.08.15.mp4               # ❌ These will NOT be processed
+│   ├── Game Name 1 Screenshot 2024.08.15.png    # ❌ These will NOT be processed
+│   └── Cutted/                                  # ✅ Only these will be renamed
 │       ├── Game Name 1 2023.08.15.mp4
 │       └── Game Name 1 Screenshot 2023.08.15.png
 └── Game Name 2/
-    ├── Game Name 2 2024.08.15.mp4               # ❌ Diese werden NICHT verarbeitet
-    ├── Game Name 2 Screenshot 2024.08.15.png    # ❌ Diese werden NICHT verarbeitet
-    └── Cutted/                                  # ✅ Nur diese werden umbenannt
+    ├── Game Name 2 2024.08.15.mp4               # ❌ These will NOT be processed
+    ├── Game Name 2 Screenshot 2024.08.15.png    # ❌ These will NOT be processed
+    └── Cutted/                                  # ✅ Only these will be renamed
         └── Game Name 2 2023.08.16.mp4
 ```
 
-### Grundlegende Ausführung
+### Basic Usage
 
 ```bash
 python main.py
 ```
 
-### Beispiel-Ausgabe
+### Example Output
 
 ```
 Checking game clips inside: /path/to/clips/Cool Game/Cutted
-	Renamed: Cool Game 2023.08.15.mp4 → Cool_Game_2023-08-15.mp4
-	Renamed: Cool Game Screenshot 2023.08.15.png → Cool_Game_Screenshot_2023-08-15.png
+	Renamed: Cool Game 2023.08.15 - 12.64.12.75.DVR.mp4 → Cool_Game_2023-08-15.mp4
+	Renamed: Cool Game Screenshot 2023.08.15 - 12.64.12.75.DVR.png → Cool_Game_Screenshot_2023-08-15.png
 
 Checking game clips inside: /path/to/clips/Another Game/Cutted
-	Renamed: Another Game 2022.12.01_extra_info.mp4 → Another_Game_2022-12-01_extra_info.mp4
+	Renamed: Another Game 2022.12.01_extra_info - 12.64.12.75.DVR.mp4 → Another_Game_2022-12-01_extra_info.mp4
 	No filename updates made.
 
 4 files were updated.
 ```
 
-## 📋 Unterstützte Dateiformate und Namensmuster
+## 📋 Supported File Formats and Naming Patterns
 
-### 🎬 Video-Dateien (.mp4)
+### 🎬 Video Files (.mp4)
 
-Das Tool erkennt und konvertiert folgende MP4-Dateienamensmuster:
+The tool recognizes and converts the following MP4 filename patterns:
 
-**Basis-Format (GeForce Experience Standard):**
+**Basic Format (GeForce Experience Standard):**
 ```
-Eingabe:  Game Name 2023.08.15.mp4
-Ausgabe:  Game_Name_2023-08-15.mp4
-```
-
-**Mit zusätzlichen Informationen:**
-```
-Eingabe:  Game Name 2023.08.15_extra_info.mp4
-Ausgabe:  Game_Name_2023-08-15_extra_info.mp4
+Input:  Game Name 2023.08.15 - 12.64.12.75.DVR.mp4
+Output: Game_Name_2023-08-15.mp4
 ```
 
-**Mit GeForce Experience Zusatztext (wird entfernt):**
+**With Additional Information:**
 ```
-Eingabe:  Game Name 2023.08.15 - 00.23.54.12.DVR.mp4
-Ausgabe:  Game_Name_2023-08-15.mp4
-
-Eingabe:  Game Name 2023.08.15_custom_info - 00.23.54.12.DVR.mp4
-Ausgabe:  Game_Name_2023-08-15_custom_info.mp4
+Input:  Game Name 2023.08.15_extra_info - 12.64.12.75.DVR.mp4
+Output: Game_Name_2023-08-15_extra_info.mp4
 ```
 
-### 🖼️ Screenshot-Dateien (.png)
+### 🖼️ Screenshot Files (.png)
 
-Das Tool erkennt und konvertiert folgende PNG-Dateienamensmuster:
+The tool recognizes and converts the following PNG filename patterns:
 
-**Basis-Format (GeForce Experience Standard):**
+**Basic Format (GeForce Experience Standard):**
 ```
-Eingabe:  Game Name Screenshot 2023.08.15.png
-Ausgabe:  Game_Name_Screenshot_2023-08-15.png
-```
-
-**Mit zusätzlichen Informationen:**
-```
-Eingabe:  Game Name Screenshot 2023.08.15_boss_fight.png
-Ausgabe:  Game_Name_Screenshot_2023-08-15_boss_fight.png
+Input:  Game Name Screenshot 2023.08.15 - 12.64.12.75.DVR.png
+Output: Game_Name_Screenshot_2023-08-15.png
 ```
 
-**Mit GeForce Experience Zusatztext (wird entfernt):**
+**With Additional Information:**
 ```
-Eingabe:  Game Name Screenshot 2023.08.15 - Kopie.png
-Ausgabe:  Game_Name_Screenshot_2023-08-15.png
-```
-
-### 🚫 Nicht unterstützte Formate
-
-Diese Dateien werden **übersprungen** und nicht umbenannt:
-
-```
-❌ Game Name 22.12.01.mp4          # Falsches Datumsformat (YY statt YYYY)
-❌ InvalidFileName.mp4             # Kein erkanntes Muster
-❌ Game_Name_2023-08-15.mp4        # Bereits korrekt formatiert
-❌ Game Name 2023.08.15.avi        # Nicht unterstütztes Format
-❌ Screenshot 2023.08.15.png       # Kein Spielname vorhanden
+Input:  Game Name Screenshot 2023.08.15_boss_fight - 12.64.12.75.DVR.png
+Output: Game_Name_Screenshot_2023-08-15_boss_fight.png
 ```
 
-## 🧪 Tests ausführen
+### 🧹 GeForce Experience Metadata Removal
+
+**Important**: The tool automatically detects and removes GeForce Experience timestamps and DVR suffixes from any filename. Common patterns that get removed include:
+- `- 12.64.12.75.DVR` (timestamp + DVR suffix)
+- `- 00.23.54.12.DVR` (different timestamp format)
+- `- Copy` (duplicate file suffix)
+- Any trailing text after the date that doesn't match the expected pattern
+
+This ensures clean, consistent filenames regardless of GeForce Experience's automatic naming conventions.
+
+### 🚫 Unsupported Formats
+
+Example files which will be **skipped** and not renamed:
+
+```
+❌ Game Name 22.12.01.mp4          # Wrong date format (YY instead of YYYY)
+❌ InvalidFileName.mp4             # No recognized pattern
+❌ Game_Name_2023-08-15.mp4        # Already correctly formatted
+❌ Game Name 2023.08.15.avi        # Unsupported format
+❌ Screenshot 2023.08.15.png       # No game name present
+```
+
+## 🧪 Running Tests
 
 ```bash
-# Alle Tests
+# All tests
 python -m unittest discover -s tests -p "test_*.py" -v
 
-# Spezifische Testdatei
+# Specific test file
 python -m unittest tests.test_adapt_file_names -v
 ```
 
-## ⚠️ Wichtige Hinweise
+## ⚠️ Important Notes
 
-- **🔒 Sicherheit durch "Cutted"-Ordner**: Das Tool verarbeitet ausschließlich Dateien in Ordnern namens "Cutted". Dies schützt Ihre ungeschnittenen Original-Clips vor versehentlichen Umbenennungen
-- **Backup empfohlen**: Erstellen Sie eine Sicherungskopie Ihrer Clips vor der ersten Ausführung
-- **Ordner-Struktur beachten**: Stellen Sie sicher, dass Ihre bearbeiteten Clips in "Cutted"-Ordnern liegen
-- **Bereits umbenannte Dateien**: Werden automatisch übersprungen
-- **Ungültige Formate**: Dateien mit unerkannten Namensmustern werden übersprungen
+- **🔒 Safety through "Cutted" folders**: The tool exclusively processes files in folders named "Cutted". This protects your unedited original clips from accidental renaming
+- **Backup recommended**: Create a backup of your clips before first execution
+- **Folder structure matters**: Make sure your edited clips are located in "Cutted" folders
+- **Already renamed files**: Are automatically skipped
+- **Invalid formats**: Files with unrecognized naming patterns will be skipped
 
-## 📄 Lizenz
+## 📄 License
 
-Dieses Projekt steht unter der [MIT Lizenz](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
-## 🐛 Fehlerbehebung
+## 🐛 Troubleshooting
 
-### Häufige Probleme
+### Common Issues
 
-**Problem**: "No filename updates made" für alle Dateien
-- **Lösung**: Überprüfen Sie den `GAME_CLIPS_PATH` in der `.env` Datei
-- **Lösung**: Stellen Sie sicher, dass Ihre geschnittenen Clips in "Cutted"-Ordnern liegen
-- **Lösung**: Prüfen Sie, ob die Ordnerstruktur korrekt ist (Dateien müssen in einem Unterordner namens "Cutted" liegen)
+**Issue**: "No filename updates made" for all files
+- **Solution**: Check the `GAME_CLIPS_PATH` in the `.env` file
+- **Solution**: Make sure your edited clips are in "Cutted" folders
+- **Solution**: Verify that the folder structure is correct (files must be in a subfolder named "Cutted")
 
-**Problem**: Bestimmte Dateien werden nicht umbenannt
-- **Lösung**: Überprüfen Sie das Dateinamenformat - es muss dem GeForce Experience Schema entsprechen
-- **Lösung**: Stellen Sie sicher, dass sich die Dateien in einem "Cutted"-Ordner befinden
+**Issue**: Certain files are not being renamed
+- **Solution**: Check the filename format - it must follow the GeForce Experience schema
+- **Solution**: Make sure the files are in a "Cutted" folder
 
-**Problem**: Tool findet keine Dateien
-- **Lösung**: Überprüfen Sie, ob Ihre Clips in Ordnern namens "Cutted" organisiert sind
-- **Lösung**: Das Tool ignoriert bewusst alle anderen Ordner zum Schutz unbearbeiteter Clips
+**Issue**: Tool doesn't find any files
+- **Solution**: Check if your clips are organized in folders named "Cutted"
+- **Solution**: The tool deliberately ignores all other folders to protect unedited clips
 
-**Problem**: ModuleNotFoundError
-- **Lösung**: Führen Sie `pip install -r requirements.txt` aus
+**Issue**: ModuleNotFoundError
+- **Solution**: Run `pip install -r requirements.txt`
 
-### Debug-Modus
+### Debug Mode
 
-Für detaillierte Informationen können Sie das Logging aktivieren oder die Tests als Referenz verwenden:
+For detailed information, you can enable logging or use the tests as reference:
 
 ```bash
 python -m unittest tests.test_adapt_file_names.TestAdaptMP4FileNames.test__should_adapt_mp4_file_name -v
