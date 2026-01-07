@@ -128,9 +128,8 @@ Checking game clips inside: /path/to/clips/Cool Game/Cutted
 
 Checking game clips inside: /path/to/clips/Another Game/Cutted
 	Renamed: Another Game 2022.12.01_extra_info - 12.64.12.75.DVR.mp4 → Another_Game_2022-12-01_extra_info.mp4
-	No filename updates made.
 
-4 files were updated.
+3 files were updated.
 ```
 
 ## 📋 Supported File Formats and Naming Patterns
